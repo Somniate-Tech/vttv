@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from voiceToText import process_base64_audio
 from intentService import extract_intent
-
+from textToVoice import process_reply_to_audio
 app = FastAPI()
 
 # Voice to Text Endpoint
@@ -42,6 +42,29 @@ async def voice_to_intent(request: AudioRequest):
             "status": "success",
             "text": text,
             "intent": intent_result.get("intent")
+        }
+
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e)
+        }
+    
+# text to voice api
+
+class ReplyRequest(BaseModel):
+    success: bool
+    data: dict
+
+
+@app.post("/textToVoice")
+async def reply_to_voice(request: ReplyRequest):
+    try:
+        audio_base64 = process_reply_to_audio(request.dict())
+
+        return {
+            "status": "success",
+            "audio_base64": audio_base64
         }
 
     except Exception as e:

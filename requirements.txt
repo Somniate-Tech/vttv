@@ -4,6 +4,6 @@ groq==0.9.0
 python-dotenv==1.0.1
 pydantic==2.7.4
 requests==2.32.3
-
+pyttsx3
 
 # conda install -c conda-forge ffmpeg -y (need to install separately)
