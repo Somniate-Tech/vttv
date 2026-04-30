@@ -93,8 +93,7 @@ Text:
     completion = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
-        temperature=0,
-        max_completion_tokens=200
+        temperature=0
     )
 
     return completion.choices[0].message.content.strip()
