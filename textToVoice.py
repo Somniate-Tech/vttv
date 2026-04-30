@@ -28,9 +28,16 @@ def generate_audio_from_text(text: str) -> str:
         engine.save_to_file(text, file_path)
         engine.runAndWait()
 
+        # 🔥 FIX 1: ensure file is fully written
+        import time
+        time.sleep(0.5)
+
         # Convert to base64
         with open(file_path, "rb") as f:
             audio_base64 = base64.b64encode(f.read()).decode("utf-8")
+
+        # 🔥 FIX 2: clean base64
+        audio_base64 = audio_base64.replace("\n", "").replace("\r", "").strip()
 
         return audio_base64
 
