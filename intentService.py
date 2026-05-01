@@ -53,7 +53,6 @@ def extract_intent(text: str) -> dict:
         model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         temperature=0,  # important for consistency
-        max_completion_tokens=100,
         top_p=1,
         stream=False
     )
